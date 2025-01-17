@@ -17,6 +17,7 @@ public class MenuUIHandler : MonoBehaviour
     public void NewColorSelected(Color color)
     {
         // add code here to handle when a color is selected
+        MainManager.Instance.unitColor = color;
     }
     
     private void Start()
@@ -24,6 +25,7 @@ public class MenuUIHandler : MonoBehaviour
         ColorPicker.Init();
         //this will call the NewColorSelected function when the color picker have a color button clicked.
         ColorPicker.onColorChanged += NewColorSelected;
+        ColorPicker.SelectColor(MainManager.Instance.unitColor);
     }
 
     #region menuButtons
@@ -34,6 +36,8 @@ public class MenuUIHandler : MonoBehaviour
 
     public void exitGame()
     {
+        MainManager.Instance.saveColor();
+
 #if (UNITY_EDITOR)
         //if the game is running in the editor
         EditorApplication.ExitPlaymode();
@@ -44,5 +48,6 @@ public class MenuUIHandler : MonoBehaviour
 #endif
         
     }
-#endregion
+    #endregion
+
 }
